@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Keyword Tool Testing</title>
+    <link rel="reset" href="./reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<br>
+<h1>Keyword Tool</h1>
+<br>
+<br>
+<!-- <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Keyword</span>
+        </div>
+        <input type="text" id="keyword" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+      </div> -->
+<div>
+  <input id="upload" type="file" />
+</div>
+<br>
+
+<div class="input-group input-group-lg">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-lg">Headers</span>
+  </div>
+  <input type="text" id="headinput" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+</div>
+<br>
+
+<div>
+  <ul id="headers">
+  </ul>
+</div>
+
+<!-- <div class="input-group input-group-lg">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-lg">Header 2</span>
+  </div>
+  <input type="text" id="header2" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+</div>
+<br>
+
+<div class="input-group input-group-lg">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-lg">Header 3</span>
+  </div>
+  <input type="text" id="header3" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+</div>
+<br> -->
+
+<button type="button" id="submit" class="btn btn-dark">Submit</button>
+<button type="button" class="btn btn-primary">Copy/Purge</button>
+<button type="button" class="btn btn-secondary">Copy</button>
+<button type="button" class="btn btn-success">Ungroup</button>
+<button type="button" class="btn btn-danger">Trash</button>
+
+
+<div id="container">
+  <!-- <h1 id="result1"></h1>
+  <ul id="group1">
+  </ul>
+  <h1 id="result2"></h1>
+  <ul id="group2">
+  </ul>
+  <h1 id="result3"></h1>
+  <ul id="group3">
+  </ul> -->
+</div>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.8/jquery.csv.js" integrity="sha256-TtoEQBr6hfutE/4YHCeQ5y2Ufa6yC62YDipUdFRcRec=" crossorigin="anonymous"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
+
