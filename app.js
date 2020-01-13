@@ -94,3 +94,48 @@ function loadHandler(event) {
   words.shift()
   console.log(words);
 }
+
+//Keyword Group input box
+(function() {
+  window.MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+  let onAddedElement = function(element) {
+    if (!element.matches("span[contenteditable=true]"))
+      return;
+    new MutationObserver(function(mutationsList) {
+      if (this.innerText === this.oldInnerText)
+        return;
+      this.oldInnerText = this.innerText;
+      this.dispatchEvent(new Event("textchanged"));
+    }.bind(element)).observe(element, { attributes: false, childList: true, subtree: true, characterData: true });
+  }
+  new MutationObserver(function(mutationsList) {
+      for (let mutation of mutationsList) {
+          for (let child of mutation.addedNodes) {
+            if (!child.matches)
+              continue;
+            onAddedElement(child);
+          }
+      }
+  }).observe(document.body, { attributes: false, childList: true, subtree: true });
+
+  (function findElements(parent) {
+    for (let child of parent.children) {
+      if (child.matches)
+        onAddedElement(child);
+      findElements(child);
+    }
+    delete findElements;
+  })(document.body);
+})();
+
+window.addEventListener("DOMContentLoaded", function() {
+	let myspan = document.getElementById("myspan");
+  myspan.addEventListener("textchanged", function() {
+  	document.getElementById("hello").innerText = myspan.innerText;
+  });
+});
+
+if (document.readyState === "complete") {
+	window.dispatchEvent(new Event("DOMContentLoaded"));
+	window.dispatchEvent(new Event("load"));
+}
