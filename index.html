@@ -11,29 +11,32 @@
 <br>
 <h1>Keyword Tool</h1>
 <br>
-
-<!-- Input box (allows on change, sends through enter key) -->
-<br><br>Keyword Group Input<br>
-<span id="myspan" contenteditable="true" spellcheck="false"></span>
-<br><br>
-<span id="hello"></span>
-<br>
 <!-- Upload -->
+<h2>Upload file</h2>
 <div>
   <input id="upload" type="file" />
 </div>
 <br>
 
-<div>
-  <ul id="headers">
-  </ul>
-</div>
+<h2>Keywords Data</h2>
+<table id="original">
+  <tr>
+    <th>Keyword Phrase ||</th>
+    <th>Volume</th>
+  </tr>
+</table>
+<br>
 
-<button type="button" id="submit" class="btn btn-dark">Submit</button>
-<button type="button" class="btn btn-primary">Copy/Purge</button>
-<button type="button" class="btn btn-secondary">Copy</button>
-<button type="button" class="btn btn-success">Ungroup</button>
-<button type="button" class="btn btn-danger">Trash</button>
+<!-- Input box (allows on change, sends through enter key) -->
+<h2>Keyword Group Input</h2>
+Please press enter after each line.
+<br>
+<span id="myspan" contenteditable="true" spellcheck="false"></span>
+<br><br>
+<span id="hello"></span>
+<br>
+<button type="button" id="submit" class="btn btn-dark">Update Groups</button>
+<br>
 
 <div id="container">
   <!-- Results are linked here. -->

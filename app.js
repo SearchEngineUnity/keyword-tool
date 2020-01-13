@@ -2,7 +2,6 @@ var words = [];
 var headers = [];
 var fileUploaded = false;
 
-
 $(document).ready(function(){
   //enter is 13
 $("#myspan").keypress(function(event){
@@ -26,10 +25,8 @@ $("#myspan").keypress(function(event){
   })
   
   $("#submit").click(function(){
-    
     for (var word of words){
       word = word.toLowerCase();
-
       // var found = false;
       for (var header of headers) {
         // '\b' is the metacharacter for word boundary
@@ -57,17 +54,18 @@ function errorHandler(event) {
   }
 }
 
-function refershList() {
-  $("#headers").html("")
-  for (var header of headers) {
-    $("#headers").append("<li>" + header.keyword + "</li>")
-  }
-  }
+// function refershList() {
+//   $("#headers").html("")
+//   for (var header of headers) {
+//     $("#headers").append("<li>" + header.keyword + "</li>")
+//   }
+//   }
 
 function refreshResultsList() {
   $("#container").html("")
   for (var header of headers) {
-    $("#container").append("<h1>" + header.keyword + "</h1><ul>") 
+    $("#container").append("<h1>" + header.keyword + "</h1><ul>" + "<button type='button' class='btn btn-primary'>Copy/Purge</button>" +
+    "<button type='button' class='btn btn-success'>Copy</button>" + "<button type='button' class='btn btn-danger'>Purge</button>") 
    
     for (var item of header.items) {
       $("#container").append("<li>" + item + "</li>")
