@@ -5,15 +5,23 @@ var fileUploaded = false;
 
 $(document).ready(function(){
   //enter is 13
-$("#headinput").keypress(function(event){
+$("#myspan").keypress(function(event){
   var keycode = (event.keyCode ? event.keyCode : event.which);
   if (keycode == 13) {
-    headers.push({
-      keyword: $("#headinput").val().toLowerCase().trim(),
-      items: []
-    })
+    var keywords = $("#myspan").html().split("<br>")
+    console.log(keywords)
+    headers = [];
+    keywords.forEach(kw => {
+      if(kw !== ""){
+        headers.push({
+          keyword: kw.toLowerCase().trim(),
+          items: []
+        })      
+      }
+    });
+    console.log(`headers array ${JSON.stringify(headers)}`)
     refershList()
-    $("#headinput").val("")
+    $("#myspan").val("")
   }
   })
   
