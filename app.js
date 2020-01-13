@@ -8,7 +8,7 @@ $("#myspan").keypress(function(event){
   var keycode = (event.keyCode ? event.keyCode : event.which);
   if (keycode == 13) {
     var inputs = $("#myspan").html().split("<br>")
-    console.log(inputs)
+    // console.log(inputs)
     headers = [];
     inputs.forEach(input => {
       if(input !== ""){
@@ -18,24 +18,24 @@ $("#myspan").keypress(function(event){
         })      
       }
     });
-    console.log(`headers array ${JSON.stringify(headers)}`)
-    refershList()
+    // console.log(`headers array ${JSON.stringify(headers)}`)
+    // refershList()
     $("#myspan").val("")
   }
   })
   
   $("#submit").click(function(){
-    for (var word of keywords){
-      word = word.keyword.toLowerCase();
+    for (var kw of keywords){
+      var word = kw.keyword.toLowerCase();
       // var found = false;
       for (var header of headers) {
         // '\b' is the metacharacter for word boundary
         var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
-        console.log(regex)
+        // console.log(regex)
         if (word.match(regex)){ 
-          console.log(word, header)
+          // console.log(word, header)
           var index = headers.findIndex(x=>x.keyword === header.keyword)
-          headers[index].items.push(word);
+          headers[index].items.push(kw);
           // continue; 
           break;
         } 
@@ -54,25 +54,40 @@ function errorHandler(event) {
   }
 }
 
-function refershList() {
-  $("#headers").html("")
-  for (var header of headers) {
-    $("#headers").append("<li>" + header.keyword + "</li>")
-  }
-  }
+// function refershList() {
+//   $("#headers").html("")
+//   for (var header of headers) {
+//     $("#headers").append("<li>" + header.keyword + "</li>")
+//   }
+//   }
 
 function refreshResultsList() {
-  $("#container").html("")
-  for (var header of headers) {
-    $("#container").append("<h1>" + header.keyword + "</h1>" + "<button type='button' class='btn btn-primary'>Copy/Purge</button>" +
-    "<button type='button' class='btn btn-success'>Copy</button>" + "<button type='button' class='btn btn-danger'>Purge</button>") 
-   
-    $('#container').append("table").id("")
-    for (var item of header.items) {
-      $("#container").append("<li>" + item + "</li>")
+  $("#container").empty();
+  console.log(headers)
+  for (var [i, el] of headers.entries()) {
+    console.log(i, el)
+    var id = "group" + (i+1)
+    var tableId = "table" + (i+1)
+    $("#container").append(
+      $(`<div id=${id}>`).append($(`<h1>${el.keyword}</h1>`))
+                          .append($(`<table id=${tableId}>`))
+    )
+    for (var w of el.items) {
+      $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
     }
-
   }
+  // for (var header of headers) {
+  //   $("#container").append("<div>")
+  //                   .append("<h1>")
+  //   $("#container").append("<h1>" + header.keyword + "</h1>" + "<button type='button' class='btn btn-primary'>Copy/Purge</button>" +
+  //   "<button type='button' class='btn btn-success'>Copy</button>" + "<button type='button' class='btn btn-danger'>Purge</button>") 
+   
+  //   $('#container').append("table").id("")
+  //   for (var item of header.items) {
+  //     $("#container").append("<li>" + item + "</li>")
+  //   }
+
+  // }
 }
 
 function getAsText(fileToRead) {
@@ -103,8 +118,8 @@ function loadHandler(event) {
 }
 
 function printCsv() {
-  $("#original")
-  console.log(keywords)
+  // $("#original")
+  // console.log(keywords)
   for (var kw of keywords){
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
   }
