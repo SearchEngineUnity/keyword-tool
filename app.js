@@ -1,4 +1,4 @@
-var words = [];
+var keywords = [];
 var headers = [];
 var fileUploaded = false;
 
@@ -7,13 +7,13 @@ $(document).ready(function(){
 $("#myspan").keypress(function(event){
   var keycode = (event.keyCode ? event.keyCode : event.which);
   if (keycode == 13) {
-    var keywords = $("#myspan").html().split("<br>")
-    console.log(keywords)
+    var inputs = $("#myspan").html().split("<br>")
+    console.log(inputs)
     headers = [];
-    keywords.forEach(kw => {
-      if(kw !== ""){
+    inputs.forEach(input => {
+      if(input !== ""){
         headers.push({
-          keyword: kw.toLowerCase().trim(),
+          keyword: input.toLowerCase().trim(),
           items: []
         })      
       }
@@ -25,8 +25,8 @@ $("#myspan").keypress(function(event){
   })
   
   $("#submit").click(function(){
-    for (var word of words){
-      word = word.toLowerCase();
+    for (var word of keywords){
+      word = word.keyword.toLowerCase();
       // var found = false;
       for (var header of headers) {
         // '\b' is the metacharacter for word boundary
@@ -54,23 +54,24 @@ function errorHandler(event) {
   }
 }
 
-// function refershList() {
-//   $("#headers").html("")
-//   for (var header of headers) {
-//     $("#headers").append("<li>" + header.keyword + "</li>")
-//   }
-//   }
+function refershList() {
+  $("#headers").html("")
+  for (var header of headers) {
+    $("#headers").append("<li>" + header.keyword + "</li>")
+  }
+  }
 
 function refreshResultsList() {
   $("#container").html("")
   for (var header of headers) {
-    $("#container").append("<h1>" + header.keyword + "</h1><ul>" + "<button type='button' class='btn btn-primary'>Copy/Purge</button>" +
+    $("#container").append("<h1>" + header.keyword + "</h1>" + "<button type='button' class='btn btn-primary'>Copy/Purge</button>" +
     "<button type='button' class='btn btn-success'>Copy</button>" + "<button type='button' class='btn btn-danger'>Purge</button>") 
    
+    $('#container').append("table").id("")
     for (var item of header.items) {
       $("#container").append("<li>" + item + "</li>")
     }
-    $("#container").append("</ul>")
+
   }
 }
 
@@ -96,9 +97,17 @@ function loadHandler(event) {
   // var csv = event.target.result;
   // processData(csv);
   var result = $.csv.toArrays(event.target.result);
-  words = result.map(x=>x[0])
-  words.shift()
-  console.log(words);
+  keywords = result.map(([keyword, volume]) => ({keyword, volume}))
+  keywords.shift()
+  printCsv();
+}
+
+function printCsv() {
+  $("#original")
+  console.log(keywords)
+  for (var kw of keywords){
+  $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
+  }
 }
 
 //Keyword Group input box
