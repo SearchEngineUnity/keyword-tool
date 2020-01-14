@@ -1,5 +1,8 @@
+//When I purge I will purge from the Keywords
 var keywords = [];
 var headers = [];
+var leftover = [];
+var matched = [];
 var fileUploaded = false;
 
 $(document).ready(function(){
@@ -25,23 +28,40 @@ $("#myspan").keypress(function(event){
   })
   
   $("#submit").click(function(){
+    headers = headers.map(x => {
+      return {
+        keyword: x.keyword,
+        items: []
+      }
+    })
+    console.log(headers)
     for (var kw of keywords){
       var word = kw.keyword.toLowerCase();
+      // var remove = keywords.findIndex(x=>x.keyword.toLowerCase() === word)
       // var found = false;
       for (var header of headers) {
         // '\b' is the metacharacter for word boundary
+        //gmi as modifier did not work (m for multi line)
+        //g as the modifier did not work (global)
+        //i as the modifier did not work (in case sensitive)
+        //\\w did not work
+        //\w did not work
+        //\\m did not work
         var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
-        // console.log(regex)
-        if (word.match(regex)){ 
-          // console.log(word, header)
+        console.log(regex)
+        if (word.match(regex)){
+          console.log(word, header)
           var index = headers.findIndex(x=>x.keyword === header.keyword)
           headers[index].items.push(kw);
+          matched.push(word)
+          // keywords.splice(remove, 1)
           // continue; 
           break;
         } 
       } 
     }
     refreshResultsList()
+    printCsv()
   })
 
   $("#upload").bind("change", handleFiles 
@@ -62,15 +82,21 @@ function errorHandler(event) {
 //   }
 
 function refreshResultsList() {
-  $("#container").empty();
-  console.log(headers)
+  $("#container").empty()
+  // console.log(headers)
   for (var [i, el] of headers.entries()) {
-    console.log(i, el)
+    // console.log(i, el)
     var id = "group" + (i+1)
     var tableId = "table" + (i+1)
     $("#container").append(
       $(`<div id=${id}>`).append($(`<h1>${el.keyword}</h1>`))
+                        //  .append($(`<button type='button' class='btn btn-primary'>Copy/Purge</button>`))
+                        //  .append($(`<button type='button' class='btn btn-success'>Copy</button>`))
+                        //  .append($(`<button type='button' class='btn btn-danger'>Purge</button>`))
                           .append($(`<table id=${tableId}>`))
+                        .append($(`<button type='button' class='btn btn-primary'>Copy/Purge</button>`))
+                        .append($(`<button type='button' class='btn btn-success'>Copy</button>`))
+                        .append($(`<button type='button' class='btn btn-danger'>Purge</button>`))
     )
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
@@ -111,6 +137,9 @@ function handleFiles(event) {
 function loadHandler(event) {
   // var csv = event.target.result;
   // processData(csv);
+  keywords = []
+  matched = []
+  leftover = []
   var result = $.csv.toArrays(event.target.result);
   keywords = result.map(([keyword, volume]) => ({keyword, volume}))
   keywords.shift()
@@ -118,9 +147,12 @@ function loadHandler(event) {
 }
 
 function printCsv() {
-  // $("#original")
-  // console.log(keywords)
-  for (var kw of keywords){
+  $("#original").html("")
+  console.log(keywords)
+  //pass element from keywords array to list if the el.keyword is not found in matched array
+  var list = keywords.filter(el=>matched.indexOf(el.keyword) === -1 )
+  console.log(list)
+  for (var kw of list){
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
   }
 }
