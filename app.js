@@ -2,6 +2,7 @@ var keywords = [];
 var headers = [];
 var leftover = [];
 var matched = [];
+var purgedHeaders = [];
 var fileUploaded = false;
 
 new ClipboardJS(".copy")
@@ -22,7 +23,6 @@ $(document).ready(function(){
     
     $("#myspan").val("")
   
-
     headers = headers.map(x => {
       return {
         keyword: x.keyword,
@@ -54,29 +54,47 @@ $(document).ready(function(){
 
   //binds the function to the document so that later appends can use it. (never needs to be readded always availible)
   $(document).on("click", ".purge", function() {
+    var purgedList = []
     console.log($(this).data("id"))
-    var timeout = $(this).data("id")
-    setInterval(function (){
-      $("#" + timeout).empty() 
-    },1000)
-  })
+    var groupId = $(this).data("id")
+    var getId = $(this).data("id").match(/\d+/)[0]
+    console.log(getId)
+    $("#table" + getId).find("tr").each(function(i, el){
+      var column = $(this).find('td'),
+      keyword = column.eq(0).text()
+      purgedList.push(keyword)
 
+    })
+    console.log(purgedList)
+    
+    keywords = keywords.filter(el=>purgedList.indexOf(el.keyword) === -1 )
+    console.log(keywords)
+    var wow = $("#" + groupId).find("h1").text()
+    console.log(wow)
+    purgedHeaders.push(wow)
+    $('#submit').click(); //fakes a click
+    //also does not remove from input box
+    
+    
+    
+    //add headers to an array or purged headers
+    
+    // var timeout = $(this).data("id")
+    // setInterval(function (){
+    //   // $("#" + timeout).empty() 
+    // },1000)
+  })
+  
   $("#upload").bind("change", handleFiles 
   );
 }) 
+ //we need to print purged headers on page
 
 function errorHandler(event) {
   if(evt.target.error.name == "NotReadableError") {
     alert("Cannot read file!");
   }
 }
-
-// function refershList() {
-//   $("#headers").html("")
-//   for (var header of headers) {
-//     $("#headers").append("<li>" + header.keyword + "</li>")
-//   }
-//   }
 
 function refreshResultsList() {
   $("#container").empty()
@@ -96,18 +114,6 @@ function refreshResultsList() {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
     }
   }
-  // for (var header of headers) {
-  //   $("#container").append("<div>")
-  //                   .append("<h1>")
-  //   $("#container").append("<h1>" + header.keyword + "</h1>" + "<button type='button' class='btn btn-primary'>Copy/Purge</button>" +
-  //   "<button type='button' class='btn btn-success'>Copy</button>" + "<button type='button' class='btn btn-danger'>Purge</button>") 
-   
-  //   $('#container').append("table").id("")
-  //   for (var item of header.items) {
-  //     $("#container").append("<li>" + item + "</li>")
-  //   }
-
-  // }
 }
 
 function getAsText(fileToRead) {
@@ -129,8 +135,6 @@ function handleFiles(event) {
 }
 
 function loadHandler(event) {
-  // var csv = event.target.result;
-  // processData(csv);
   keywords = []
   matched = []
   leftover = []
@@ -150,6 +154,7 @@ function printCsv() {
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
   }
 }
+
    // TRY THIS FUNCTION!!!
    var line = 'car, how, build & deploy';
 
