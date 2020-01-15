@@ -5,13 +5,32 @@ var leftover = [];
 var matched = [];
 var fileUploaded = false;
 
+new ClipboardJS(".copy")
+
 $(document).ready(function(){
   //enter is 13
-$("#myspan").keypress(function(event){
-  var keycode = (event.keyCode ? event.keyCode : event.which);
-  if (keycode == 13) {
+// $("#myspan").keypress(function(event){
+//   // // var keycode = (event.keyCode ? event.keyCode : event.which);
+//   // // if (keycode == 13) {
+//   //   var inputs = $("#myspan").html().split("<br>")
+//   //   // console.log(inputs)
+//   //   headers = [];
+//   //   inputs.forEach(input => {
+//   //     if(input !== ""){
+//   //       headers.push({
+//   //         keyword: input.toLowerCase().trim(),
+//   //         items: []
+//   //       })      
+//   //     }
+//   //   });
+//   //   // console.log(`headers array ${JSON.stringify(headers)}`)
+//   //   // refershList()
+//   //   $("#myspan").val("")
+//   // // }
+//   })
+  
+  $("#submit").click(function(){
     var inputs = $("#myspan").html().split("<br>")
-    // console.log(inputs)
     headers = [];
     inputs.forEach(input => {
       if(input !== ""){
@@ -21,13 +40,10 @@ $("#myspan").keypress(function(event){
         })      
       }
     });
-    // console.log(`headers array ${JSON.stringify(headers)}`)
-    // refershList()
+    
     $("#myspan").val("")
-  }
-  })
   
-  $("#submit").click(function(){
+
     headers = headers.map(x => {
       return {
         keyword: x.keyword,
@@ -47,27 +63,11 @@ $("#myspan").keypress(function(event){
         //\\w did not work
         //\w did not work
         //\\m did not work
-        var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
-        //((?=.*\bcanada\b)(?=.*\bpainting\b).*)|((?=.*\bhow to\b).*)/
 
-        // TRY THIS FUNCTION!!!
-        // var line = 'car, how, build & deploy';
-
-        // function convertToRegExp(line) {
-        //   var regexp = '';
-        //   var parts = line.toLowerCase().split(',');
-        //   for (const part of parts) {
-        //     regexp += regexp.length ? '|(' : '(';
-        //     var keywords = part.split('&');
-        //     for (const keyword of keywords) {
-        //        regexp += '(?=.*\\b' + keyword.trim() + '\\b)';
-        //     }
-        //     regexp += '.*)';
-        //   }
-        //   return regexp;
-        // }
+       
         
-        // console.log(convertToRegExp(line));
+        // var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
+        var regex = new RegExp(convertToRegExp(header.keyword), "i")
         
         
         console.log(regex)
@@ -84,6 +84,15 @@ $("#myspan").keypress(function(event){
     }
     refreshResultsList()
     printCsv()
+  })
+
+  //binds the function to the document so that later appends can use it. (never needs to be readded always availible)
+  $(document).on("click", ".purge", function() {
+    console.log($(this).data("id"))
+    var timeout = $(this).data("id")
+    setInterval(function (){
+      $("#" + timeout).empty() 
+    },1000)
   })
 
   $("#upload").bind("change", handleFiles 
@@ -116,9 +125,9 @@ function refreshResultsList() {
                         //  .append($(`<button type='button' class='btn btn-success'>Copy</button>`))
                         //  .append($(`<button type='button' class='btn btn-danger'>Purge</button>`))
                         .append($(`<table id=${tableId}>`))
-                        .append($(`<button type='button' class='btn btn-primary'>Copy/Purge</button>`))
-                        .append($(`<button type='button' class='btn btn-success'>Copy</button>`))
-                        .append($(`<button type='button' class='btn btn-danger'>Purge</button>`))
+                        .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
+                        .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
+                        .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge'>Purge</button>`))
     )
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
@@ -179,17 +188,24 @@ function printCsv() {
   }
 }
 
-function copy() {
-  var copyText = document.getElementById();
-}
+   // TRY THIS FUNCTION!!!
+   var line = 'car, how, build & deploy';
 
-function purge() {
-
-}
-
-function copyPurge() {
-
-}
+   function convertToRegExp(line) {
+      var regexp = '';
+      var parts = line.toLowerCase().split(',');
+      for (const part of parts) {
+        regexp += regexp.length ? '|(' : '(';
+        var keywords = part.split('&');
+        for (const keyword of keywords) {
+           regexp += '(?=.*\\b' + keyword.trim() + '\\b)';
+        }
+        regexp += '.*)';
+      }
+      return regexp;
+    }
+    
+    console.log(convertToRegExp(line));
 
 //Keyword Group input box
 // (function() {
