@@ -1,4 +1,3 @@
-//When I purge I will purge from the Keywords
 var keywords = [];
 var headers = [];
 var leftover = [];
@@ -8,26 +7,6 @@ var fileUploaded = false;
 new ClipboardJS(".copy")
 
 $(document).ready(function(){
-  //enter is 13
-// $("#myspan").keypress(function(event){
-//   // // var keycode = (event.keyCode ? event.keyCode : event.which);
-//   // // if (keycode == 13) {
-//   //   var inputs = $("#myspan").html().split("<br>")
-//   //   // console.log(inputs)
-//   //   headers = [];
-//   //   inputs.forEach(input => {
-//   //     if(input !== ""){
-//   //       headers.push({
-//   //         keyword: input.toLowerCase().trim(),
-//   //         items: []
-//   //       })      
-//   //     }
-//   //   });
-//   //   // console.log(`headers array ${JSON.stringify(headers)}`)
-//   //   // refershList()
-//   //   $("#myspan").val("")
-//   // // }
-//   })
   
   $("#submit").click(function(){
     var inputs = $("#myspan").html().split("<br>")
@@ -53,22 +32,10 @@ $(document).ready(function(){
     console.log(headers)
     for (var kw of keywords){
       var word = kw.keyword.toLowerCase();
-      // var remove = keywords.findIndex(x=>x.keyword.toLowerCase() === word)
-      // var found = false;
+     
       for (var header of headers) {
-        // '\b' is the metacharacter for word boundary
-        //gmi as modifier did not work (m for multi line)
-        //g as the modifier did not work (global)
-        //i as the modifier did not work (in case sensitive)
-        //\\w did not work
-        //\w did not work
-        //\\m did not work
-
-       
-        
         // var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
         var regex = new RegExp(convertToRegExp(header.keyword), "i")
-        
         
         console.log(regex)
         if (word.match(regex)){
@@ -76,8 +43,7 @@ $(document).ready(function(){
           var index = headers.findIndex(x=>x.keyword === header.keyword)
           headers[index].items.push(kw);
           matched.push(word)
-          // keywords.splice(remove, 1)
-          // continue; 
+ 
           break;
         } 
       } 
@@ -121,9 +87,6 @@ function refreshResultsList() {
     var tableId = "table" + (i+1)
     $("#container").append(
       $(`<div id=${id}>`).append($(`<h1>${el.keyword}</h1>`))
-                        //  .append($(`<button type='button' class='btn btn-primary'>Copy/Purge</button>`))
-                        //  .append($(`<button type='button' class='btn btn-success'>Copy</button>`))
-                        //  .append($(`<button type='button' class='btn btn-danger'>Purge</button>`))
                         .append($(`<table id=${tableId}>`))
                         .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
                         .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
@@ -187,7 +150,6 @@ function printCsv() {
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
   }
 }
-
    // TRY THIS FUNCTION!!!
    var line = 'car, how, build & deploy';
 
@@ -196,7 +158,7 @@ function printCsv() {
       var parts = line.toLowerCase().split(',');
       for (const part of parts) {
         regexp += regexp.length ? '|(' : '(';
-        var keywords = part.split('&');
+        var keywords = part.split('&amp;');
         for (const keyword of keywords) {
            regexp += '(?=.*\\b' + keyword.trim() + '\\b)';
         }
@@ -207,47 +169,3 @@ function printCsv() {
     
     console.log(convertToRegExp(line));
 
-//Keyword Group input box
-// (function() {
-//   window.MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-//   let onAddedElement = function(element) {
-//     if (!element.matches("span[contenteditable=true]"))
-//       return;
-//     new MutationObserver(function(mutationsList) {
-//       if (this.innerText === this.oldInnerText)
-//         return;
-//       this.oldInnerText = this.innerText;
-//       this.dispatchEvent(new Event("textchanged"));
-//     }.bind(element)).observe(element, { attributes: false, childList: true, subtree: true, characterData: true });
-//   }
-//   new MutationObserver(function(mutationsList) {
-//       for (let mutation of mutationsList) {
-//           for (let child of mutation.addedNodes) {
-//             if (!child.matches)
-//               continue;
-//             onAddedElement(child);
-//           }
-//       }
-//   }).observe(document.body, { attributes: false, childList: true, subtree: true });
-
-//   (function findElements(parent) {
-//     for (let child of parent.children) {
-//       if (child.matches)
-//         onAddedElement(child);
-//       findElements(child);
-//     }
-//     delete findElements;
-//   })(document.body);
-// })();
-
-// window.addEventListener("DOMContentLoaded", function() {
-// 	let myspan = document.getElementById("myspan");
-//   myspan.addEventListener("textchanged", function() {
-//   	document.getElementById("hello").innerText = myspan.innerText;
-//   });
-// });
-
-// if (document.readyState === "complete") {
-// 	window.dispatchEvent(new Event("DOMContentLoaded"));
-// 	window.dispatchEvent(new Event("load"));
-// }
