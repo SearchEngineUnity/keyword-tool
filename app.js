@@ -21,7 +21,7 @@ $(document).ready(function(){
       }
     });
     
-    $("#myspan").val("")
+    // $("#myspan").val("")
   
     headers = headers.map(x => {
       return {
@@ -72,17 +72,15 @@ $(document).ready(function(){
     var wow = $("#" + groupId).find("h1").text()
     console.log(wow)
     purgedHeaders.push(wow)
+
+    // remove header from search input box
+    var inputs = $("#myspan").html().split("<br>").filter(x => x !== wow).join("<br>")
+    console.log(inputs)
+
+    $("#myspan").html(inputs)
+
     $('#submit').click(); //fakes a click
-    //also does not remove from input box
-    
-    
-    
-    //add headers to an array or purged headers
-    
-    // var timeout = $(this).data("id")
-    // setInterval(function (){
-    //   // $("#" + timeout).empty() 
-    // },1000)
+
   })
   
   $("#upload").bind("change", handleFiles 
@@ -156,8 +154,21 @@ function printCsv() {
 }
 
    // TRY THIS FUNCTION!!!
-   var line = 'car, how, build & deploy';
+   var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
+   // words = [car, how, 'build &amp; deploy']
 
+  function findAllCartesianProduct() {
+    // [car], [how], [build, deploy]
+    // var cp = Combinatorics.cartesianProduct(["car"], ["how"], ["build", "deploy"])
+    
+    
+    
+    console.log(cp.toArray())
+    
+    // convertToRegExp()
+  }
+  
+  findAllCartesianProduct();
    function convertToRegExp(line) {
       var regexp = '';
       var parts = line.toLowerCase().split(',');
