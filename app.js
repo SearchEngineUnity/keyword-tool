@@ -49,6 +49,25 @@ $("#myspan").keypress(function(event){
         //\\m did not work
         var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
         //((?=.*\bcanada\b)(?=.*\bpainting\b).*)|((?=.*\bhow to\b).*)/
+
+        // TRY THIS FUNCTION!!!
+        // var line = 'car, how, build & deploy';
+
+        // function convertToRegExp(line) {
+        //   var regexp = '';
+        //   var parts = line.toLowerCase().split(',');
+        //   for (const part of parts) {
+        //     regexp += regexp.length ? '|(' : '(';
+        //     var keywords = part.split('&');
+        //     for (const keyword of keywords) {
+        //        regexp += '(?=.*\\b' + keyword.trim() + '\\b)';
+        //     }
+        //     regexp += '.*)';
+        //   }
+        //   return regexp;
+        // }
+        
+        // console.log(convertToRegExp(line));
         
         
         console.log(regex)
