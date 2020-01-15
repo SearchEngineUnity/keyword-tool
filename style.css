@@ -1,4 +1,25 @@
+#start {
+  width: 100%;
+}
 
+#feeder {
+  width: 50%;
+}
+
+#original {
+  float: left;
+}
+
+#entry {
+  width: 50%;
+  float: right;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  text-align: left;
+}
 
 /* Keyword Group Input  */
 span[contenteditable=true] {
