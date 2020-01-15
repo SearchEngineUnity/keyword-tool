@@ -48,6 +48,9 @@ $("#myspan").keypress(function(event){
         //\w did not work
         //\\m did not work
         var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
+        //((?=.*\bcanada\b)(?=.*\bpainting\b).*)|((?=.*\bhow to\b).*)/
+        
+        
         console.log(regex)
         if (word.match(regex)){
           console.log(word, header)
@@ -93,7 +96,7 @@ function refreshResultsList() {
                         //  .append($(`<button type='button' class='btn btn-primary'>Copy/Purge</button>`))
                         //  .append($(`<button type='button' class='btn btn-success'>Copy</button>`))
                         //  .append($(`<button type='button' class='btn btn-danger'>Purge</button>`))
-                          .append($(`<table id=${tableId}>`))
+                        .append($(`<table id=${tableId}>`))
                         .append($(`<button type='button' class='btn btn-primary'>Copy/Purge</button>`))
                         .append($(`<button type='button' class='btn btn-success'>Copy</button>`))
                         .append($(`<button type='button' class='btn btn-danger'>Purge</button>`))
@@ -155,6 +158,18 @@ function printCsv() {
   for (var kw of list){
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
   }
+}
+
+function copy() {
+  var copyText = document.getElementById();
+}
+
+function purge() {
+
+}
+
+function copyPurge() {
+
 }
 
 //Keyword Group input box

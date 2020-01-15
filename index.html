@@ -8,38 +8,32 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<br>
-<h1>Keyword Tool</h1>
-<br>
-<!-- Upload -->
-<h2>Upload file</h2>
-<div>
-  <input id="upload" type="file" />
-</div>
-<br>
-
-<h2>Feeder List</h2>
-<table id="original">
-  <tr>
-    <th>Keyword</th>
-    <th>Volume</th>
-  </tr>
-</table>
-<br>
-
+  <!-- Upload -->
+  <div id="start">
+    <h1>Keyword Tool</h1>
+    <br>
+    <h2>Upload file</h2>
+    <input id="upload" type="file"/>
+  </div>
+  <br>
+  <h2>Feeder List</h2>
+  <div>
+  <!-- CSV result -->
+    <div id="feeder">
+    <table id="original">
+      <tr>
+      </tr>
+    </table>
+    </div>
 <!-- Input box (allows on change, sends through enter key) -->
-<h2>Keyword Group Input</h2>
-Please press enter after each line.
-<br>
-<span id="myspan" contenteditable="true" spellcheck="false"></span>
-<br><br>
-<span id="hello"></span>
-<br>
-<button type="button" id="submit" class="btn btn-dark">Update Groups</button>
-<br>
-
-<div id="container">
-  <!-- Results are linked here. -->
+ <div id="entry">
+  <h2>Keyword Group Input</h2>
+  <span id="myspan" contenteditable="true" spellcheck="false"></span>
+  <span id="hello"></span>
+  <button type="button" id="submit" class="btn btn-dark">Update Groups</button>
+  <!-- Results -->
+  <div id="container">
+  </div>
 </div>
 
 <body>
