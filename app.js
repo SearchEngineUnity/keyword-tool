@@ -72,14 +72,17 @@ $(document).ready(function(){
     var wow = $("#" + groupId).find("h1").text()
     console.log(wow)
     purgedHeaders.push(wow)
-
+    $("#removedGroups").empty()
+    for (var header of purgedHeaders) {
+      $("#removedGroups").append(header)
+    }
     // remove header from search input box
     var inputs = $("#myspan").html().split("<br>").filter(x => x !== wow).join("<br>")
     console.log(inputs)
 
     $("#myspan").html(inputs)
 
-    $('#submit').click(); //fakes a click
+    $('#submit').click(); //fakes a click or use .trigger("click") to fake stuff
 
   })
   
@@ -113,7 +116,6 @@ function refreshResultsList() {
     }
   }
 }
-
 function getAsText(fileToRead) {
   var reader = new FileReader();
   reader.readAsText(fileToRead);
@@ -154,19 +156,19 @@ function printCsv() {
 }
 
    // TRY THIS FUNCTION!!!
-   var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
-   // words = [car, how, 'build &amp; deploy']
+  //  var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
+  //  // words = [car, how, 'build &amp; deploy']
 
-  function findAllCartesianProduct() {
-    // [car], [how], [build, deploy]
-    // var cp = Combinatorics.cartesianProduct(["car"], ["how"], ["build", "deploy"])
+  // function findAllCartesianProduct() {
+  //   // [car], [how], [build, deploy]
+  //   // var cp = Combinatorics.cartesianProduct(["car"], ["how"], ["build", "deploy"])
     
     
     
-    console.log(cp.toArray())
+  //   console.log(cp.toArray())
     
-    // convertToRegExp()
-  }
+  //   // convertToRegExp()
+  // }
   
   findAllCartesianProduct();
    function convertToRegExp(line) {
