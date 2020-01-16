@@ -72,6 +72,7 @@ $(document).ready(function(){
     var wow = $("#" + groupId).find("h1").text()
     console.log(wow)
     purgedHeaders.push(wow)
+    //prints headers
     $("#removedGroups").empty()
     for (var header of purgedHeaders) {
       $("#removedGroups").append(header)
