@@ -21,15 +21,13 @@ $(document).ready(function(){
       }
     });
     
-    // $("#myspan").val("")
-  
     headers = headers.map(x => {
       return {
         keyword: x.keyword,
         items: []
       }
     })
-    console.log(headers)
+    // console.log(headers)
     for (var kw of keywords){
       var word = kw.keyword.toLowerCase();
      
@@ -37,9 +35,9 @@ $(document).ready(function(){
         // var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
         var regex = new RegExp(convertToRegExp(header.keyword), "i")
         
-        console.log(regex)
+        // console.log(regex)
         if (word.match(regex)){
-          console.log(word, header)
+          // console.log(word, header)
           var index = headers.findIndex(x=>x.keyword === header.keyword)
           headers[index].items.push(kw);
           matched.push(word)
@@ -58,19 +56,19 @@ $(document).ready(function(){
     console.log($(this).data("id"))
     var groupId = $(this).data("id")
     var getId = $(this).data("id").match(/\d+/)[0]
-    console.log(getId)
+    // console.log(getId)
     $("#table" + getId).find("tr").each(function(i, el){
       var column = $(this).find('td'),
       keyword = column.eq(0).text()
       purgedList.push(keyword)
 
     })
-    console.log(purgedList)
+    // console.log(purgedList)
     
     keywords = keywords.filter(el=>purgedList.indexOf(el.keyword) === -1 )
-    console.log(keywords)
+    // console.log(keywords)
     var wow = $("#" + groupId).find("h1").text()
-    console.log(wow)
+    // console.log(wow)
     purgedHeaders.push(wow)
     //prints headers
     $("#removedGroups").empty()
@@ -79,7 +77,7 @@ $(document).ready(function(){
     }
     // remove header from search input box
     var inputs = $("#myspan").html().split("<br>").filter(x => x !== wow).join("<br>")
-    console.log(inputs)
+    // console.log(inputs)
 
     $("#myspan").html(inputs)
 
@@ -90,7 +88,6 @@ $(document).ready(function(){
   $("#upload").bind("change", handleFiles 
   );
 }) 
- //we need to print purged headers on page
 
 function errorHandler(event) {
   if(evt.target.error.name == "NotReadableError") {
@@ -107,7 +104,7 @@ function refreshResultsList() {
     var tableId = "table" + (i+1)
     $("#container").append(
       $(`<div id=${id}>`).append($(`<h1>${el.keyword}</h1>`))
-                        .append($(`<table id=${tableId}>`))
+                        .append($(`<div class='topple overflow-auto'><table id=${tableId}></div>`))
                         .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
                         .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
                         .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge'>Purge</button>`))
@@ -146,28 +143,25 @@ function loadHandler(event) {
 }
 
 function printCsv() {
-  $("#original").html("")
-  console.log(keywords)
+  $("#feeder").html("")
+  // console.log(keywords)
   //pass element from keywords array to list if the el.keyword is not found in matched array
   var list = keywords.filter(el=>matched.indexOf(el.keyword) === -1 )
-  console.log(list)
+  // console.log(list)
+  $('#feeder').append("<div id='main' class='overflow-auto'><table id='original'></table></div>")
   for (var kw of list){
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
   }
+  $('#feeder').append("<button type='button' data-clipboard-target='#original' class='btn btn-success copy'>Copy</button>")
 }
 
-   // TRY THIS FUNCTION!!!
   //  var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
   //  // words = [car, how, 'build &amp; deploy']
 
   // function findAllCartesianProduct() {
   //   // [car], [how], [build, deploy]
   //   // var cp = Combinatorics.cartesianProduct(["car"], ["how"], ["build", "deploy"])
-    
-    
-    
   //   console.log(cp.toArray())
-    
   //   // convertToRegExp()
   // }
   

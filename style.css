@@ -1,24 +1,40 @@
+#page {
+  margin: 25px;
+}
 #start {
   width: 100%;
 }
 
 #feeder {
-  width: 50%;
-}
-
-#original {
+  width: 45%;
   float: left;
+  
+}
+#main {
+ max-height: 300px;
+}
+.topple {
+  max-height: 200px;
 }
 
 #entry {
-  width: 50%;
+  width: 45%;
   float: right;
+}
+
+table {
+  margin-right: 8px;
 }
 
 th, td {
   border-bottom: 1px solid #ddd;
   padding: 5px;
   text-align: left;
+  width: 100%;
+}
+
+button {
+  margin: 5px;
 }
 
 /* Keyword Group Input  */
