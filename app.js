@@ -73,7 +73,7 @@ $(document).ready(function(){
     //prints headers
     $("#removedGroups").empty()
     for (var header of purgedHeaders) {
-      $("#removedGroups").append(header)
+      $("#removedGroups").append(header + "<br>")
     }
     // remove header from search input box
     var inputs = $("#myspan").html().split("<br>").filter(x => x !== wow).join("<br>")
@@ -104,7 +104,7 @@ function refreshResultsList() {
     var tableId = "table" + (i+1)
     $("#container").append(
       $(`<div id=${id}>`).append($(`<h1>${el.keyword}</h1>`))
-                        .append($(`<div class='topple overflow-auto'><table id=${tableId}></div>`))
+                        .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
                         .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
                         .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
                         .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge'>Purge</button>`))
@@ -148,7 +148,7 @@ function printCsv() {
   //pass element from keywords array to list if the el.keyword is not found in matched array
   var list = keywords.filter(el=>matched.indexOf(el.keyword) === -1 )
   // console.log(list)
-  $('#feeder').append("<div id='main' class='overflow-auto'><table id='original'></table></div>")
+  $('#feeder').append("<div id='main' class='overflow-auto border border-dark'><table id='original'></table></div>")
   for (var kw of list){
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
   }

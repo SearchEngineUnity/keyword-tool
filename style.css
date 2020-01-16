@@ -1,7 +1,23 @@
 #page {
   margin: 25px;
 }
+
+#title{
+  width: 45%;
+  float: left;
+}
+
+#purgedGroups {
+  width: 45%;
+  float: right;
+  
+}
+#removedGroups {
+  max-height: 100px;
+  padding: 8px;
+}
 #start {
+  float: left;
   width: 100%;
 }
 
