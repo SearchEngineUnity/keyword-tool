@@ -33,9 +33,10 @@ $(document).ready(function(){
      
       for (var header of headers) {
         // var regex = new RegExp('\\b' + header.keyword + '\\b', "i")
-        var regex = new RegExp(convertToRegExp(header.keyword), "i")
+        var cpKeyword = convertStringToCPString(header.keyword)
+        var regex = new RegExp(convertToRegExp(cpKeyword), "i")
         
-        // console.log(regex)
+        console.log(regex)
         if (word.match(regex)){
           // console.log(word, header)
           var index = headers.findIndex(x=>x.keyword === header.keyword)
@@ -155,30 +156,57 @@ function printCsv() {
   $('#feeder').append("<button type='button' data-clipboard-target='#original' class='btn btn-success copy'>Copy</button>")
 }
 
-  //  var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
-  //  // words = [car, how, 'build &amp; deploy']
+var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
+// words = [car, how, 'build &amp; deploy']
 
-  // function findAllCartesianProduct() {
-  //   // [car], [how], [build, deploy]
-  //   // var cp = Combinatorics.cartesianProduct(["car"], ["how"], ["build", "deploy"])
-  //   console.log(cp.toArray())
-  //   // convertToRegExp()
-  // }
+function convertStringToCPString(line) {
+  console.log(typeof line)
+  var arr = []
+  //from 'car, how, build &amp; deploy' to [["car"], ["how"], ["build", "deploy"]]
+  var lineArr = line.toLowerCase().split('&amp;')
   
-  findAllCartesianProduct();
-   function convertToRegExp(line) {
-      var regexp = '';
-      var parts = line.toLowerCase().split(',');
-      for (const part of parts) {
-        regexp += regexp.length ? '|(' : '(';
-        var keywords = part.split('&amp;');
-        for (const keyword of keywords) {
-           regexp += '(?=.*\\b' + keyword.trim() + '\\b)';
-        }
-        regexp += '.*)';
-      }
-      return regexp;
+  lineArr.forEach(x => {
+    if(x.match(',')) {
+      let subArr = x.split(",")
+      subArr.map(x => x.trim())
+      arr.push(subArr)
+    } else {
+      arr.push([x.trim()])
     }
-    
-    console.log(convertToRegExp(line));
+  }) //[['car'], ['how'], ['build', 'deploy']]
+  
+  var cp = Combinatorics.cartesianProduct(...arr).toArray()
+  console.log(cp) //[['car', 'how', 'build'], ['car', 'how', 'deploy']]
+
+  var newString = ''
+
+  for (const el of cp) {
+    newString += newString.length ? ", " : "";
+    for ( const [i, x] of el.entries()) {
+      if (i === 0) {
+        newString += (x.trim() + ' ')
+      } else {
+        newString += ('&amp; ' + x.trim() + ' ')
+      }
+    }
+  }
+
+  console.log(newString)
+  return newString
+}
+
+function convertToRegExp(line) {
+  var regexp = '';
+  var parts = line.toLowerCase().split(','); 
+  for (const part of parts) {
+    regexp += regexp.length ? '|(' : '(';
+    var keywords = part.split('&amp;');
+    for (const keyword of keywords) {
+        regexp += '(?=.*\\b' + keyword.trim() + '\\b)';
+    }
+    regexp += '.*)';
+  }
+  return regexp;
+}
+
 
