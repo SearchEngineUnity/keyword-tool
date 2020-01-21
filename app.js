@@ -26,6 +26,13 @@ $(document).on('paste', '[contenteditable]', function (e) {
 });
 
 $(document).ready(function(){
+  $("#copyAll").click(function(){
+    $(".hideUsing").hide()
+    $("#hide").trigger("click")
+    setTimeout(function(){
+      $(".hideUsing").show()
+    },500)
+  })
   
   $("#submit").click(function(){
     var inputs = $("#myspan").html().split("<br>")
@@ -86,7 +93,7 @@ $(document).ready(function(){
     keywords = keywords.filter(el=>purgedList.indexOf(el.keyword) === -1 )
     // console.log(keywords)
     var wow = $("#" + groupId).find("h1").text()
-    // console.log(wow)
+    console.log(wow)
     purgedHeaders.push(wow)
     //prints headers
     $("#removedGroups").empty()
@@ -94,11 +101,10 @@ $(document).ready(function(){
       $("#removedGroups").append(header + "<br>")
     }
     // remove header from search input box
-    var inputs = $("#myspan").html().split("<br>").filter(x => x !== wow).join("<br>")
-    // console.log(inputs)
+    var inputs = $("#myspan").text().split("<br>").filter(x => x !== wow).join("<br>")
+    console.log(inputs)
 
     $("#myspan").html(inputs)
-
     $('#submit').click(); //fakes a click or use .trigger("click") to fake stuff
 
   })
@@ -115,6 +121,7 @@ function errorHandler(event) {
 
 function refreshResultsList() {
   $("#container").empty()
+  // var clipboardText = ""
   // console.log(headers)
   for (var [i, el] of headers.entries()) {
     // console.log(i, el)
@@ -123,14 +130,20 @@ function refreshResultsList() {
     $("#container").append(
       $(`<div id=${id}>`).append($(`<h1>${el.keyword}</h1>`))
                         .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
-                        .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
-                        .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
-                        .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge'>Purge</button>`))
+      //                   .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
+      //                   .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
+      //                   .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge'>Purge</button>`))
     )
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
     }
+    // clipboardText += $(`#${id}`).text()
+    $(`#${id}`)
+    .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge hideUsing'>Copy/Purge</button>`))
+    .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy hideUsing'>Copy</button>`))
+    .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge hideUsing'>Purge</button>`))
   }
+  // $('#copyAll').attr('data-clipboard-text', clipboardText)
 }
 function getAsText(fileToRead) {
   var reader = new FileReader();
