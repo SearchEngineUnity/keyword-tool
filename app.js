@@ -162,8 +162,9 @@ function refreshResultsList() {
     var id = "group" + (i+1)
     var tableId = "table" + (i+1)
     $("#container").append(
-      $(`<div id=${id}>`).append($(`<h1>&shy;</h1><h1 class="headerTag">${el.keyword}</h1>`))
+      $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword}</h1>`))
                         .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
+                        .append($(`<h3 id="spacing">&shy;</h3>`))
                         // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
                         // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
                         // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
