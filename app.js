@@ -26,9 +26,36 @@ $(document).on('paste', '[contenteditable]', function (e) {
 });
 
 $(document).ready(function(){
-  // $("#purgeAll").click(function(){
-  //   $(".purge").each(.click())
-  // })
+  $("#copyPurgeAll").click(function(){
+    $("#copyAll").click();
+    $("#purgeAll").click();
+  })
+
+  $("#purgeAll").click(function(){
+    var purgedList = []
+    // console.log($(this).data("id"))
+    $(".headerTag").each(function(i, el){
+      var header = $(this).html()
+      console.log(header)
+      purgedList.push(header)
+      purgedHeaders.push(header)
+    })
+    console.log(purgedList)
+    
+    keywords = keywords.filter(el=>purgedList.indexOf(el.keyword) === -1 )
+    // console.log(keywords)
+
+    //prints headers
+    $("#removedGroups").empty()
+    for (var header of purgedHeaders) {
+      $("#removedGroups").append(header + "<br>")
+    }
+
+    $("#myspan").empty()
+    $('#submit').click(); //fakes a click or use .trigger("click") to fake stuff    
+  })
+
+
   $("#copyAll").click(function(){
     $(".hideUsing").hide()
     $("#hide").trigger("click")
@@ -39,7 +66,7 @@ $(document).ready(function(){
   
   $("#submit").click(function(){
     var inputs = $("#myspan").html().split("<br>")
-    console.log(inputs)
+    // console.log(inputs)
     headers = [];
     inputs.forEach(input => {
       if(input !== ""){
@@ -135,7 +162,7 @@ function refreshResultsList() {
     var id = "group" + (i+1)
     var tableId = "table" + (i+1)
     $("#container").append(
-      $(`<div id=${id}>`).append($(`<h1>&shy;</h1><h1>${el.keyword}</h1>`))
+      $(`<div id=${id}>`).append($(`<h1>&shy;</h1><h1 class="headerTag">${el.keyword}</h1>`))
                         .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
                         // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
                         // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
