@@ -26,6 +26,9 @@ $(document).on('paste', '[contenteditable]', function (e) {
 });
 
 $(document).ready(function(){
+  // $("#purgeAll").click(function(){
+  //   $(".purge").each(.click())
+  // })
   $("#copyAll").click(function(){
     $(".hideUsing").hide()
     $("#hide").trigger("click")
@@ -36,6 +39,7 @@ $(document).ready(function(){
   
   $("#submit").click(function(){
     var inputs = $("#myspan").html().split("<br>")
+    console.log(inputs)
     headers = [];
     inputs.forEach(input => {
       if(input !== ""){
@@ -78,13 +82,13 @@ $(document).ready(function(){
   //binds the function to the document so that later appends can use it. (never needs to be readded always availible)
   $(document).on("click", ".purge", function() {
     var purgedList = []
-    console.log($(this).data("id"))
+    // console.log($(this).data("id"))
     var groupId = $(this).data("id")
     var getId = $(this).data("id").match(/\d+/)[0]
     // console.log(getId)
     $("#table" + getId).find("tr").each(function(i, el){
       var column = $(this).find('td'),
-      keyword = column.eq(0).text()
+      keyword = column.eq(0).html()
       purgedList.push(keyword)
 
     })
@@ -92,17 +96,20 @@ $(document).ready(function(){
     
     keywords = keywords.filter(el=>purgedList.indexOf(el.keyword) === -1 )
     // console.log(keywords)
-    var wow = $("#" + groupId).find("h1").text()
-    console.log(wow)
+    var wow = $("#" + groupId).find("h1").html()
+    // console.log(wow)
     purgedHeaders.push(wow)
     //prints headers
     $("#removedGroups").empty()
     for (var header of purgedHeaders) {
       $("#removedGroups").append(header + "<br>")
     }
+    // console.log($("#myspan").text().split("<br>"))
     // remove header from search input box
-    var inputs = $("#myspan").text().split("<br>").filter(x => x !== wow).join("<br>")
+    var inputs = $("#myspan").html().split("<br>").filter(x => x !== wow).join("<br>")
     console.log(inputs)
+    console.log(wow)
+    
 
     $("#myspan").html(inputs)
     $('#submit').click(); //fakes a click or use .trigger("click") to fake stuff
@@ -130,9 +137,9 @@ function refreshResultsList() {
     $("#container").append(
       $(`<div id=${id}>`).append($(`<h1>${el.keyword}</h1>`))
                         .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
-      //                   .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
-      //                   .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
-      //                   .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge'>Purge</button>`))
+                        // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
+                        // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
+                        // .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge'>Purge</button>`))
     )
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
@@ -196,7 +203,7 @@ function printCsv() {
   //   // convertToRegExp()
   // }
   
-  findAllCartesianProduct();
+  // findAllCartesianProduct();
    function convertToRegExp(line) {
       var regexp = '';
       var parts = line.toLowerCase().split(',');
@@ -211,5 +218,5 @@ function printCsv() {
       return regexp;
     }
     
-    console.log(convertToRegExp(line));
+    // console.log(convertToRegExp(line));
 
