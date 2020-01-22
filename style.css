@@ -3,6 +3,10 @@
   padding: 25px;
 }
 
+h2 {
+  font-size: large;
+}
+
 #title{
   width: 45%;
   float: left;
@@ -10,13 +14,15 @@
 
 #purgedGroups {
   width: 45%;
-  float: right;
-  
+  float: right; 
 }
+
 #removedGroups {
   max-height: 100px;
+  font-size: small;
   padding: 8px;
 }
+
 #start {
   float: left;
   width: 100%;
@@ -25,11 +31,12 @@
 #feeder {
   width: 45%;
   float: left;
-  
 }
+
 #main {
- max-height: 300px;
+ max-height: 400px;
 }
+
 .topple {
   max-height: 200px;
 }
@@ -44,20 +51,21 @@ table {
 }
 
 th, td {
+  font-size: small;
   border-bottom: 1px solid #ddd;
-  padding: 5px;
+  padding: 3px;
   text-align: left;
   width: 100%;
 }
 
-button {
+.btn {
   margin: 5px;
+  font-size: small;
 }
-
 /* Keyword Group Input  */
 span[contenteditable=true] {
     display: inline-block;
-    width: 400px;
+    width: 600px;
     height: autO;
     font-family: sans-serif;
     font-weight: 400;

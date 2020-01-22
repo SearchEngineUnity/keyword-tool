@@ -137,18 +137,18 @@ function refreshResultsList() {
     $("#container").append(
       $(`<div id=${id}>`).append($(`<h1>${el.keyword}</h1>`))
                         .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
-                        // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge'>Copy/Purge</button>`))
-                        // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy'>Copy</button>`))
-                        // .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge'>Purge</button>`))
+                        // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
+                        // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
+                        // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
     )
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
     }
     // clipboardText += $(`#${id}`).text()
     $(`#${id}`)
-    .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-primary copy purge hideUsing'>Copy/Purge</button>`))
-    .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-success copy hideUsing'>Copy</button>`))
-    .append($(`<button type='button' data-id='${id}' class='btn btn-danger purge hideUsing'>Purge</button>`))
+    .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge hideUsing'>Copy/Purge</button>`))
+    .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy hideUsing'>Copy</button>`))
+    .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge hideUsing'>Purge</button>`))
   }
   // $('#copyAll').attr('data-clipboard-text', clipboardText)
 }
@@ -190,7 +190,7 @@ function printCsv() {
   for (var kw of list){
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
   }
-  $('#feeder').append("<button type='button' data-clipboard-target='#original' class='btn btn-success copy'>Copy</button>")
+  $('#feeder').append("<button type='button' data-clipboard-target='#original' class='btn btn-secondary btn-sm copy'>Copy</button>")
 }
 
   //  var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
