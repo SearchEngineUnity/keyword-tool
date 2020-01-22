@@ -6,10 +6,15 @@
 h1 {
   font-size: medium;
   /* font-weight: bold; */
+  padding: 8px;
 }
 
 h2 {
   font-size: large;
+}
+
+h3 {
+  height: 1px;
 }
 
 #title{
