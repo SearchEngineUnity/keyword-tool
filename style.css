@@ -4,7 +4,8 @@
 }
 
 h1 {
-  font-size: large;
+  font-size: medium;
+  /* font-weight: bold; */
 }
 
 h2 {
@@ -69,7 +70,7 @@ th, td {
 /* Keyword Group Input  */
 span[contenteditable=true] {
     display: inline-block;
-    width: 600px;
+    width: 650px;
     height: autO;
     font-family: sans-serif;
     font-weight: 400;
