@@ -3,17 +3,21 @@
   padding: 25px;
 }
 
+h1 {
+  font-size: large;
+}
+
 h2 {
   font-size: large;
 }
 
 #title{
-  width: 45%;
+  width: 48%;
   float: left;
 }
 
 #purgedGroups {
-  width: 45%;
+  width: 48%;
   float: right; 
 }
 
@@ -29,7 +33,7 @@ h2 {
 }
 
 #feeder {
-  width: 45%;
+  width: 48%;
   float: left;
 }
 
@@ -42,7 +46,7 @@ h2 {
 }
 
 #entry {
-  width: 45%;
+  width: 48%;
   float: right;
 }
 
