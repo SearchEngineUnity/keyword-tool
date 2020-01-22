@@ -147,7 +147,7 @@ function refreshResultsList() {
     // clipboardText += $(`#${id}`).text()
     $(`#${id}`)
     .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge hideUsing'>Copy/Purge</button>`))
-    .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy hideUsing'>Copy</button>`))
+    .append($(`<button type='button' data-clipboard-target='#${tableId, id}' class='btn btn-secondary btn-sm copy hideUsing'>Copy</button>`))
     .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge hideUsing'>Purge</button>`))
   }
   // $('#copyAll').attr('data-clipboard-text', clipboardText)
