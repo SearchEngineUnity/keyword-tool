@@ -9,21 +9,23 @@
 </head>
 <body>
   <div id='page'>
-<div id="title"><h1>Keyword Tool</h1></div>
-<br>
-<br>
-<div id="purgedGroups" class="overflow-auto"><h2>Removed Groups</h2>
-  <div id="removedGroups"  class="overflow-auto border border-dark">
+    <div id="title">
+        <!-- Upload -->
+        <h2>Upload file</h2>
+        <input id="upload" type="file"/>
+        <br>
+        <br>
+    </div>
+<!-- Removed Groups -->
+  <div id="purgedGroups" class="overflow-auto"><h2>Removed Groups</h2>
+    <div id="removedGroups"  class="overflow-auto border border-dark">
+    </div>
   </div>
-</div>
-<br>
-<br>
-<!-- Upload -->
-<div id="start">
-  <h2>Upload file</h2>
-    <input id="upload" type="file"/>
-    <br>
-<!-- </div> -->
+  <br>
+  <br>
+<div id="start"></div>
+
+<!-- Feeder List -->
   <br>
   <h2>Feeder List</h2>
 </div>
@@ -32,20 +34,21 @@
 </div>
 <!-- Input box (allows on change, sends through enter key) -->
 <div id="entry">
-<h2>Keyword Group Input</h2>
-<div id="removedGroups">
-</div>
+  <h2>Keyword Group Input</h2>
+  <div id="removedGroups">
+  </div>
 <span id="myspan" contenteditable="true" spellcheck="false"></span>
 <span id="hello"></span>
 <br>
 <button type="button" id="submit" class="btn btn-dark">Update Groups</button>
 <button type='button' id="copyAll" class='btn btn-success'>Copy</button>
+<!-- <button type='button' id="purgeAll" class='btn btn-danger'>Purge</button> -->
 <button type='button' id="hide" data-clipboard-target='#container' class='btn btn-success d-none copy'>Hidden</button>
 <!-- Results -->
-<div id="container">
-</div>
-</div>
+  <div id="container">
   </div>
+</div>
+  <!-- </div> -->
   
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

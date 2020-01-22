@@ -1,5 +1,6 @@
 #page {
   margin: 25px;
+  padding: 25px;
 }
 
 #title{
@@ -56,7 +57,7 @@ button {
 /* Keyword Group Input  */
 span[contenteditable=true] {
     display: inline-block;
-    width: 160px;
+    width: 400px;
     height: autO;
     font-family: sans-serif;
     font-weight: 400;
