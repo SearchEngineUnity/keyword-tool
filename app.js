@@ -103,6 +103,7 @@ $(document).ready(function(){
     }
     refreshResultsList()
     printCsv()
+    alert("Groups are now compiled.");
   })
 
   //binds the function to the document so that later appends can use it. (never needs to be readded always availible)
@@ -157,6 +158,7 @@ function refreshResultsList() {
     // console.log(i, el)
     var id = "group" + (i+1)
     var tableId = "table" + (i+1)
+
     // $("#container").append(
     //   $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword} - ${el.items.length} kws</h1>`))
     //                     .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
@@ -184,9 +186,11 @@ function refreshResultsList() {
       )
 
     }
+
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
     }
+    $().last().remove();
     // clipboardText += $(`#${id}`).text()
     $(`#${id}`)
     .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge hideUsing'>Copy/Purge</button>`))
@@ -195,6 +199,8 @@ function refreshResultsList() {
   }
   // $('#copyAll').attr('data-clipboard-text', clipboardText)
 }
+
+
 function getAsText(fileToRead) {
   var reader = new FileReader();
   reader.readAsText(fileToRead);
@@ -208,6 +214,7 @@ function handleFiles(event) {
   if (window.FileReader) {
     getAsText(file);
     fileUploaded = true;
+    // alert ("Feeder List is now compiled.\nPress OK to print on screen.");
   } else {
     alert ("FileReader not supported in browser.");
   }
@@ -237,6 +244,7 @@ function printCsv() {
   }
   $('#feeder').append("<button type='button' data-clipboard-target='#original' class='btn btn-secondary btn-sm copy'>Copy</button>")
 }
+
 
   //  var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
   //  // words = [car, how, 'build &amp; deploy']
