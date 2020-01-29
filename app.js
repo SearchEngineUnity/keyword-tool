@@ -26,6 +26,12 @@ $(document).on('paste', '[contenteditable]', function (e) {
 });
 
 $(document).ready(function(){
+  $("#reverseCopyAll").click(function(){
+    reversePrint();
+    $("#copyAll").click();
+    reversePrint();
+  })
+
   $("#copyPurgeAll").click(function(){
     $("#copyAll").click();
     $("#purgeAll").click();
@@ -175,7 +181,7 @@ function refreshResultsList() {
         $(`<div id=${id}>`).append($(`<h1 ${el.items.length? 'class="headerTag"' : 'class="headerTag hideUsing"'}>${el.keyword} - ${el.items.length} kws</h1>`))
                           .append($(`<div ${el.items.length? 'class="topple overflow-auto border border-dark"' : 'class="topple overflow-auto border border-dark hideUsing"'}><table id=${tableId}></div>`))
                           // .append($(`<h3 id="spacing">&shy;</h3>`))
-                          // .append($(`${el.items.length? `<br>` : '<div/>'}`))
+                          .append($(`${el.items.length? `<br>` : '<div/>'}`))
                           // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
                           // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
                           // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
@@ -192,20 +198,12 @@ function refreshResultsList() {
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
     }
-    $().last().remove();
+    
     // clipboardText += $(`#${id}`).text()
-    if ( i !== headers.length -1){
-      $(`#${id}`)
-      .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge hideUsing'>Copy/Purge</button>`))
-      .append($(`<button type='button' data-clipboard-target='#${tableId, id}' class='btn btn-secondary btn-sm copy hideUsing'>Copy</button>`))
-      .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge hideUsing'>Purge</button>`))
-      .append($(`${el.items.length? `<br>` : '<div/>'}`))
-    } else {
-      $(`#${id}`)
-      .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge hideUsing'>Copy/Purge</button>`))
-      .append($(`<button type='button' data-clipboard-target='#${tableId, id}' class='btn btn-secondary btn-sm copy hideUsing'>Copy</button>`))
-      .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge hideUsing'>Purge</button>`))
-    }
+    $(`#${id}`)
+    .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge hideUsing'>Copy/Purge</button>`))
+    .append($(`<button type='button' data-clipboard-target='#${tableId, id}' class='btn btn-secondary btn-sm copy hideUsing'>Copy</button>`))
+    .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge hideUsing'>Purge</button>`))
   }
   // $('#copyAll').attr('data-clipboard-text', clipboardText)
 }
@@ -283,3 +281,8 @@ function printCsv() {
     
     // console.log(convertToRegExp(line));
 
+function reversePrint (){
+  $('#container > div').each(function() {
+    $(this).prependTo(this.parentNode);
+  });
+}
