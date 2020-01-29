@@ -162,7 +162,7 @@ function refreshResultsList() {
     var id = "group" + (i+1)
     var tableId = "table" + (i+1)
     $("#container").append(
-      $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword}</h1>`))
+      $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword} - ${el.items.length} kws</h1>`))
                         .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
                         .append($(`<h3 id="spacing">&shy;</h3>`))
                         // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
@@ -214,6 +214,7 @@ function printCsv() {
   //pass element from keywords array to list if the el.keyword is not found in matched array
   var list = keywords.filter(el=>matched.indexOf(el.keyword) === -1 )
   // console.log(list)
+  $('#start').append(`<h2>Feeder List - ${list.length} kws</h2>`)
   $('#feeder').append("<div id='main' class='overflow-auto border border-dark'><table id='original'></table></div>")
   for (var kw of list){
   $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
