@@ -35,7 +35,7 @@ $(document).ready(function(){
     var purgedList = []
     // console.log($(this).data("id"))
     $(".headerTag").each(function(i, el){
-      var header = $(this).html()
+      var header = $(this).html().replace(/\s\-\s[0-9]*\s\bkws\b/g, "")
       console.log(header)
       purgedList.push(header)
       purgedHeaders.push(header)
@@ -123,7 +123,7 @@ $(document).ready(function(){
     
     keywords = keywords.filter(el=>purgedList.indexOf(el.keyword) === -1 )
     // console.log(keywords)
-    var wow = $("#" + groupId).find("h1").html()
+    var wow = $("#" + groupId).find("h1").html().replace(/\s\-\s[0-9]*\s\bkws\b/g, "")
     // console.log(wow)
     purgedHeaders.push(wow)
     //prints headers
@@ -209,6 +209,7 @@ function loadHandler(event) {
 }
 
 function printCsv() {
+  $("#start").html("")
   $("#feeder").html("")
   // console.log(keywords)
   //pass element from keywords array to list if the el.keyword is not found in matched array
