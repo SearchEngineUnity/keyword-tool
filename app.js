@@ -248,7 +248,7 @@ function printCsv() {
   $('#start').append(`<h2>Feeder List - ${list.length} kws</h2>`)
   $('#feeder').append("<div id='main' class='overflow-auto border border-dark'><table id='original'></table></div>")
   for (var kw of list){
-  $('#original').append(`<tr><td>${kw.keyword}</td><td>${kw.volume}</td></tr>`)
+  $('#original').append(`<tr><td>${kw.keyword.trim()}</td><td>${kw.volume}</td></tr>`)
   }
   $('#feeder').append("<button type='button' data-clipboard-target='#original' class='btn btn-secondary btn-sm copy'>Copy</button>")
 }
