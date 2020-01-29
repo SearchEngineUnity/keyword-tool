@@ -110,7 +110,7 @@ $(document).ready(function(){
     }
     refreshResultsList()
     printCsv()
-    alert("Groups are now compiled.");
+    // alert("Groups are now compiled.");
   })
 
   //binds the function to the document so that later appends can use it. (never needs to be readded always availible)
@@ -190,7 +190,7 @@ function refreshResultsList() {
     } else {
       $("#container").append(
         $(`<div id=${id}>`).append($(`<h1 ${el.items.length? 'class="headerTag"' : 'class="headerTag hideUsing"'}>${el.keyword} - ${el.items.length} kws</h1>`))
-                          .append($(`<div ${el.items.length? 'class="topple overflow-auto border border-dark"' : 'class="topple overflow-auto border border-dark hideUsing"'}></div>`))
+                          .append($(`<div ${el.items.length? 'class="topple overflow-auto border border-dark"' : 'class="topple overflow-auto border border-dark hideUsing"'}><table id=${tableId}></div>`))
       )
         console.log('last')
     }
