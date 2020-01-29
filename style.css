@@ -4,7 +4,7 @@
 }
 
 h1 {
-  font-size: medium;
+  font-size: 1rem;
   /* font-weight: bold; */
   padding: 8px;
 }
@@ -15,6 +15,11 @@ h2 {
 
 h3 {
   height: 1px;
+}
+
+.headerTag {
+  margin-top: 1rem;
+  font-weight: 800;
 }
 
 #title{
@@ -29,7 +34,7 @@ h3 {
 
 #removedGroups {
   max-height: 100px;
-  font-size: small;
+  font-size: 1rem;
   padding: 8px;
 }
 
@@ -44,11 +49,11 @@ h3 {
 }
 
 #main {
- max-height: 400px;
+ max-height: 416px;
 }
 
 .topple {
-  max-height: 200px;
+  max-height: 208px;
 }
 
 #entry {
@@ -66,6 +71,7 @@ th, td {
   padding: 3px;
   text-align: left;
   width: 100%;
+  font-weight: normal;
 }
 
 .btn {
