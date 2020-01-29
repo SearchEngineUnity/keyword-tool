@@ -104,6 +104,7 @@ $(document).ready(function(){
     }
     refreshResultsList()
     printCsv()
+    alert("Groups are now compiled.");
   })
 
   //binds the function to the document so that later appends can use it. (never needs to be readded always availible)
@@ -164,7 +165,8 @@ function refreshResultsList() {
     $("#container").append(
       $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword}</h1>`))
                         .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
-                        .append($(`<h3 id="spacing">&shy;</h3>`))
+                        // .append($(`<h3 id="spacing">&shy;</h3>`))
+                        .append($(`<br>`))
                         // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
                         // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
                         // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
@@ -172,6 +174,7 @@ function refreshResultsList() {
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
     }
+    $().last().remove();
     // clipboardText += $(`#${id}`).text()
     $(`#${id}`)
     .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge hideUsing'>Copy/Purge</button>`))
@@ -180,6 +183,8 @@ function refreshResultsList() {
   }
   // $('#copyAll').attr('data-clipboard-text', clipboardText)
 }
+
+
 function getAsText(fileToRead) {
   var reader = new FileReader();
   reader.readAsText(fileToRead);
@@ -193,6 +198,7 @@ function handleFiles(event) {
   if (window.FileReader) {
     getAsText(file);
     fileUploaded = true;
+    // alert ("Feeder List is now compiled.\nPress OK to print on screen.");
   } else {
     alert ("FileReader not supported in browser.");
   }
@@ -220,6 +226,7 @@ function printCsv() {
   }
   $('#feeder').append("<button type='button' data-clipboard-target='#original' class='btn btn-secondary btn-sm copy'>Copy</button>")
 }
+
 
   //  var line = 'car, how, build &amp; deploy'; // needs to become a string as 'car &amp; build, how &amp; build, car &amp; deploy, how &amp; deploy'
   //  // words = [car, how, 'build &amp; deploy']
