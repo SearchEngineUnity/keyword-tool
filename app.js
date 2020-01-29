@@ -36,11 +36,9 @@ $(document).ready(function(){
     // console.log($(this).data("id"))
     $(".headerTag").each(function(i, el){
       var header = $(this).html().replace(/\s\-\s[0-9]*\s\bkws\b/g, "")
-      console.log(header)
       purgedList.push(header)
       purgedHeaders.push(header)
     })
-    console.log(purgedList)
     
     keywords = keywords.filter(el=>purgedList.indexOf(el.keyword) === -1 )
     // console.log(keywords)
@@ -66,6 +64,7 @@ $(document).ready(function(){
   
   $("#submit").click(function(){
     var inputs = $("#myspan").html().split("<br>")
+    console.log(inputs)
     // console.log(inputs)
     headers = [];
     inputs.forEach(input => {
@@ -134,9 +133,6 @@ $(document).ready(function(){
     // console.log($("#myspan").text().split("<br>"))
     // remove header from search input box
     var inputs = $("#myspan").html().split("<br>").filter(x => x !== wow).join("<br>")
-    console.log(inputs)
-    console.log(wow)
-    
 
     $("#myspan").html(inputs)
     $('#submit').click(); //fakes a click or use .trigger("click") to fake stuff
@@ -161,14 +157,33 @@ function refreshResultsList() {
     // console.log(i, el)
     var id = "group" + (i+1)
     var tableId = "table" + (i+1)
-    $("#container").append(
-      $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword} - ${el.items.length} kws</h1>`))
-                        .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
-                        .append($(`<h3 id="spacing">&shy;</h3>`))
-                        // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
-                        // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
-                        // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
-    )
+    // $("#container").append(
+    //   $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword} - ${el.items.length} kws</h1>`))
+    //                     .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
+    //                     // .append($(`<h3 id="spacing">&shy;</h3>`))
+    //                     // .append($(`<br>`))
+    //                     // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
+    //                     // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
+    //                     // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
+    // )
+    // console.log(i, headers.entries())
+    if(i !== (headers.length -1)) {
+      $("#container").append(
+        $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword} - ${el.items.length} kws</h1>`))
+                          .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
+                          // .append($(`<h3 id="spacing">&shy;</h3>`))
+                          .append($(`<br>`))
+                          // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
+                          // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
+                          // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
+      )
+    } else {
+      $("#container").append(
+        $(`<div id=${id}>`).append($(`<h1 class="headerTag">${el.keyword} - ${el.items.length} kws</h1>`))
+                          .append($(`<div class='topple overflow-auto border border-dark'><table id=${tableId}></div>`))
+      )
+
+    }
     for (var w of el.items) {
       $(`#${tableId}`).append(`<tr><td>${w.keyword}</td><td>${w.volume}</td></tr>`)
     }
@@ -239,7 +254,7 @@ function printCsv() {
       var parts = line.toLowerCase().split(',');
       for (const part of parts) {
         regexp += regexp.length ? '|(' : '(';
-        var keywords = part.split('&amp;');
+        var keywords = part.split('+');
         for (const keyword of keywords) {
            regexp += '(?=.*\\b' + keyword.trim() + '\\b)';
         }
