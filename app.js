@@ -42,10 +42,16 @@ $(document).ready(function(){
     // console.log($(this).data("id"))
     $(".headerTag").each(function(i, el){
       var header = $(this).html().replace(/\s\-\s[0-9]*\s\bkws\b/g, "")
-      purgedList.push(header)
       purgedHeaders.push(header)
     })
     
+    $("#entry").find("tr").each(function(i, el){
+      var column = $(this).find('td'),
+      keyword = column.eq(0).html()
+      purgedList.push(keyword)
+
+    })
+
     keywords = keywords.filter(el=>purgedList.indexOf(el.keyword) === -1 )
     // console.log(keywords)
 
