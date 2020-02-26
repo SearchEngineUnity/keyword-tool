@@ -190,7 +190,7 @@ function refreshResultsList() {
     } else {
       $("#container").append(
         $(`<div id=${id}>`).append($(`<h1 ${el.items.length? 'class="headerTag"' : 'class="headerTag hideUsing"'}>${el.keyword} - ${el.items.length} kws</h1>`))
-                          .append($(`<div ${el.items.length? 'class="topple overflow-auto border border-dark"' : 'class="topple overflow-auto border border-dark hideUsing"'}><table id=${tableId}></div>`))
+                          .append($(`<div ${el.items.length? 'class="topple overflow-auto border border-dark"' : 'class="topple overflow-auto border border-dark hideUsing"'}<table id=${tableId}></div>`))
       )
         console.log('last')
     }
@@ -267,7 +267,7 @@ function printCsv() {
   // findAllCartesianProduct();
    function convertToRegExp(line) {
       var regexp = '';
-      var parts = line.toLowerCase().split(',');
+      var parts = line.toLowerCase().replace('&nbsp;', " ").replace(/,\s*$/, "").split(',');
       for (const part of parts) {
         regexp += regexp.length ? '|(' : '(';
         var keywords = part.split('+');
