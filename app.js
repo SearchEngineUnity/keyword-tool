@@ -26,6 +26,7 @@ $(document).on('paste', '[contenteditable]', function (e) {
 });
 
 $(document).ready(function(){
+
   $("#reverseCopyAll").click(function(){
     reversePrint();
     $("#copyAll").click();
@@ -65,14 +66,15 @@ $(document).ready(function(){
     $('#submit').click(); //fakes a click or use .trigger("click") to fake stuff    
   })
 
-
   $("#copyAll").click(function(){
-    
     $(".hideUsing").hide()
+    if($('#nocopy').is(':checked')) {
+      $('.headerTag').hide()
+    }
     $("#hide").trigger("click")
     setTimeout(function(){
-      $(".hideUsing").show()
-    },500)
+      $(".hideUsing, .headerTag").show()
+    },1000)
   })
   
   $("#submit").click(function(){
@@ -182,22 +184,26 @@ function refreshResultsList() {
     //                     // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
     // )
     console.log(i, headers.entries())
-    if(i !== (headers.length -1)) {
+    // if(i !== (headers.length -1)) {
       $("#container").append(
         $(`<div id=${id}>`).append($(`<h1 ${el.items.length? 'class="headerTag"' : 'class="headerTag hideUsing"'}>${el.keyword} - ${el.items.length} kws</h1>`))
                           .append($(`<div ${el.items.length? 'class="topple overflow-auto border border-dark"' : 'class="topple overflow-auto border border-dark hideUsing"'}><table id=${tableId}></div>`))
                           // .append($(`<h3 id="spacing">&shy;</h3>`))
-                          .append($(`${el.items.length? `<br>` : '<div/>'}`))
+                          // .append('<br>')
                           // .append($(`<button type='button' data-clipboard-target='#${tableId}' data-id='${id}' class='btn btn-secondary btn-sm copy purge'>Copy/Purge</button>`))
                           // .append($(`<button type='button' data-clipboard-target='#${tableId}' class='btn btn-secondary btn-sm copy'>Copy</button>`))
                           // .append($(`<button type='button' data-id='${id}' class='btn btn-secondary btn-sm purge'>Purge</button>`))
       )
-      console.log('not last')
+      
+      if(i !== (headers.length -1)){
+        console.log('not last')
+        $(`#${id}`).append('<br>')
     } else {
-      $("#container").append(
-        $(`<div id=${id}>`).append($(`<h1 ${el.items.length? 'class="headerTag"' : 'class="headerTag hideUsing"'}>${el.keyword} - ${el.items.length} kws</h1>`))
-                          .append($(`<div ${el.items.length? 'class="topple overflow-auto border border-dark"' : 'class="topple overflow-auto border border-dark hideUsing"'}<table id=${tableId}></div>`))
-      )
+    //   $("#container").append(
+    //     $(`<div id=${id}>`).append($(`<h1 ${el.items.length? 'class="headerTag"' : 'class="headerTag hideUsing"'}>${el.keyword} - ${el.items.length} kws</h1>`))
+    //                       .append($(`<div ${el.items.length? 'class="topple overflow-auto border border-dark"' : 'class="topple overflow-auto border border-dark hideUsing"'}<table id=${tableId}></div>`))
+    //                       .append('<br>')
+      // )
         console.log('last')
     }
 
