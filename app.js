@@ -220,7 +220,6 @@ function refreshResultsList() {
   // $('#copyAll').attr('data-clipboard-text', clipboardText)
 }
 
-
 function getAsText(fileToRead) {
   var reader = new FileReader();
   reader.readAsText(fileToRead);
